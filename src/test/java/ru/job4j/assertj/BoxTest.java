@@ -14,7 +14,7 @@ class BoxTest {
 
     @Test
     void isThisCube() {
-        Box box = new Box(8,3);
+        Box box = new Box(8, 4);
         String name = box.whatsThis();
         assertThat(name).isEqualTo("Cube");
     }
@@ -42,7 +42,7 @@ class BoxTest {
 
     @Test
     void whenObjectIsExist() {
-        Box box = new Box(4,3);
+        Box box = new Box(4, 2);
         boolean result = box.isExist();
         assertThat(result).isTrue();
     }
