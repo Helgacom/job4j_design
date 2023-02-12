@@ -45,4 +45,11 @@ public class NameLoad {
         }
         return values;
     }
+
+    public static void main(String[] args) {
+        NameLoad nameLoad = new NameLoad();
+        String[] names = {"key=value", "name1=value1"};
+        nameLoad.parse(names);
+        System.out.println(nameLoad.getMap());
+    }
 }
