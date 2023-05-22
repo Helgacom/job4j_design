@@ -23,8 +23,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
         if (count >= LOAD_FACTOR * capacity) {
             expand();
         }
-        if (table[indexForKey(key)] == null) {
-            table[indexForKey(key)] = new MapEntry<>(key, value);
+        int index = indexForKey(key);
+        if (table[index] == null) {
+            table[index] = new MapEntry<>(key, value);
             rsl = true;
             modCount++;
             count++;
@@ -41,7 +42,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     }
 
     private int indexForKey(K key) {
-        return key == null ? 0 : indexFor(hash(key.hashCode()));
+        return indexFor(hash(Objects.hashCode(key)));
     }
 
     private boolean sameKey(K key1, K key2) {
@@ -62,9 +63,10 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public V get(K key) {
         V rsl = null;
-        if (table[indexForKey(key)] != null
-                && sameKey(table[indexForKey(key)].key, key)) {
-            rsl = table[indexForKey(key)].value;
+        int index = indexForKey(key);
+        if (table[index] != null
+                && sameKey(table[index].key, key)) {
+            rsl = table[index].value;
         }
         return rsl;
     }
