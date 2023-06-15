@@ -1,6 +1,5 @@
 package ru.job4j.io;
 
-import javax.imageio.IIOException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
