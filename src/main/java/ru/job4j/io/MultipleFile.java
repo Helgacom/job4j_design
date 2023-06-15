@@ -1,6 +1,7 @@
 package ru.job4j.io;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Arrays;
 
 public class MultipleFile {
@@ -21,7 +22,7 @@ public class MultipleFile {
                 out.write(Arrays.toString(rsl[i]).getBytes());
                 out.write(System.lineSeparator().getBytes());
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
