@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 public class Config {
 
@@ -18,13 +19,11 @@ public class Config {
 
     public void load() {
         try (BufferedReader in = new BufferedReader(new FileReader(this.path))) {
-            for (String line = in.readLine(); line != null; line = in.readLine()) {
-                if (line.startsWith("=") || line.endsWith("=") || !line.contains("=")) {
-                    throw new IllegalArgumentException("find pairs with errors");
-                }
-                String[] lines = line.split("=", 2);
-                values.put(lines[0], lines[1]);
-            }
+            values.putAll(in.lines()
+                    .filter(this::validate)
+                    .filter(line -> !line.startsWith("#") && !line.isBlank())
+                    .map(line -> line.split("=", 2))
+                    .collect(Collectors.toMap(s -> s[0], s -> s[1])));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -32,6 +31,19 @@ public class Config {
 
     public String value(String key) {
         return values.get(key);
+    }
+
+    public boolean validate(String line) {
+        if (line.startsWith("=")) {
+            throw new IllegalArgumentException("find pairs with errors: line without key");
+        }
+        if (line.endsWith("=")) {
+            throw new IllegalArgumentException("find pairs with errors: line without value");
+        }
+        if (!line.contains("=") && !line.isBlank()) {
+            throw new IllegalArgumentException("find pairs with errors: line without =");
+        }
+        return true;
     }
 
     @Override

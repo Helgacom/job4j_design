@@ -19,7 +19,8 @@ class ConfigTest {
         String path = "./data/pair_with_comment_and_empty_lines.properties";
         Config config = new Config(path);
         config.load();
-        assertThat(config.value("hibernate.dialect")).isEqualTo("org.hibernate.dialect.PostgreSQLDialect");
+        assertThat("data/pair_with_comment_and_empty_lines.properties")
+                .doesNotContain("#hibernate.connection.password=password");
     }
 
     @Test
@@ -27,7 +28,15 @@ class ConfigTest {
         String path = "./data/pair_with_errors.properties";
         Config config = new Config(path);
         assertThatThrownBy(config::load)
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void whenPairWithoutKeyThanThrowIllegalArgumentException() throws IllegalArgumentException {
+        String path = "./data/pair_with_errors.properties";
+        Config config = new Config(path);
+        assertThatThrownBy(config::load)
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("find pairs with errors");
+                .hasMessageContaining("find pairs with errors: line without key");
     }
 }
