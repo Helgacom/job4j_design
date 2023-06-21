@@ -1,7 +1,6 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.util.Arrays;
 
 public class Analysis {
     public void unavailable(String source, String target) {
@@ -9,14 +8,14 @@ public class Analysis {
         try (BufferedReader in = new BufferedReader(new FileReader(source));
              PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(target)))) {
             for (String line = in.readLine(); line != null; line = in.readLine()) {
-                if (worked && (line.startsWith("400") || line.startsWith("500"))) {
+                String[] lines = line.split(" ", 2);
+                boolean error = "400".equals(lines[0]) || "500".equals(lines[0]);
+                if (worked && error) {
                     worked = false;
-                    String[] lines = line.split(" ", 2);
                     out.write(lines[1] + ";");
                 } else {
-                    if (!worked && (line.startsWith("200") || line.startsWith("300"))) {
+                    if (!worked && !error) {
                         worked = true;
-                        String[] lines = line.split(" ", 2);
                         out.write(lines[1] + ";" + System.lineSeparator());
                     }
                 }
