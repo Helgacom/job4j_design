@@ -13,11 +13,10 @@ public class Analysis {
                 if (worked && error) {
                     worked = false;
                     out.write(lines[1] + ";");
-                } else {
-                    if (!worked && !error) {
-                        worked = true;
-                        out.write(lines[1] + ";" + System.lineSeparator());
-                    }
+                }
+                if (!worked && !error) {
+                    worked = true;
+                    out.write(lines[1] + ";" + System.lineSeparator());
                 }
             }
         } catch (IOException e) {
