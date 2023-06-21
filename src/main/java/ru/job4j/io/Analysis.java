@@ -10,13 +10,12 @@ public class Analysis {
             for (String line = in.readLine(); line != null; line = in.readLine()) {
                 String[] lines = line.split(" ", 2);
                 boolean error = "400".equals(lines[0]) || "500".equals(lines[0]);
-                if (worked && error) {
-                    worked = false;
+                if (worked == error) {
+                    worked = !worked;
                     out.write(lines[1] + ";");
-                }
-                if (!worked && !error) {
-                    worked = true;
-                    out.write(lines[1] + ";" + System.lineSeparator());
+                    if (!error) {
+                        out.write(System.lineSeparator());
+                    }
                 }
             }
         } catch (IOException e) {
