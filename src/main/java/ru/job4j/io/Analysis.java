@@ -12,10 +12,9 @@ public class Analysis {
                 boolean error = "400".equals(lines[0]) || "500".equals(lines[0]);
                 if (worked == error) {
                     worked = !worked;
-                    out.write(lines[1] + ";");
-                    if (!error) {
-                        out.write(System.lineSeparator());
-                    }
+                    var s = new StringBuilder(lines[1]);
+                    String str = error ? s.append(";").toString() : s.append(";").append(System.lineSeparator()).toString();
+                    out.write(str);
                 }
             }
         } catch (IOException e) {
