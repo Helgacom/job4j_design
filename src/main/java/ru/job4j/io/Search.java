@@ -11,21 +11,23 @@ public class Search {
     public static void main(String[] args) throws IOException {
         Path start = Paths.get(args[0]);
         search(start, p -> p.toFile().getName().endsWith(args[1])).forEach(System.out::println);
+        validate(args);
     }
 
-    public static boolean validate(Path path) {
-        if (!path.startsWith(".")) {
+    public static void validate(String[] args) {
+        if (args.length < 2) {
+            throw new IllegalArgumentException("Arguments or one of them not found");
+        }
+        if (!(".".equals(args[0]))) {
             throw new IllegalArgumentException("Wrong start folder, use root folder");
         }
-        if (path.getFileName().toString().split(".").length == 2) {
+        if (args[1].split(".").length == 2 && !("".equals(args[1].split(".")[1]))) {
             throw new IllegalArgumentException("Wrong folder format");
         }
-        return true;
     }
 
     public static List<Path> search(Path root, Predicate<Path> condition) throws IOException {
         SearchFiles searcher = new SearchFiles(condition);
-        validate(root);
         Files.walkFileTree(root, searcher);
         return searcher.getLines();
     }
