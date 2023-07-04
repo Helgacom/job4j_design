@@ -1,5 +1,6 @@
 package ru.job4j.io;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,13 +16,17 @@ public class Search {
     }
 
     public static void validate(String[] args) {
-        if (args.length < 2) {
+        if (!(args.length == 2)) {
             throw new IllegalArgumentException("Arguments or one of them not found");
         }
-        if (!(".".equals(args[0]))) {
+        File file = new File(args[0]);
+        if (!file.isDirectory()) {
+            throw new IllegalArgumentException(String.format("Not directory %s", file.getAbsoluteFile()));
+        }
+        if (!(args[0]).startsWith(".")) {
             throw new IllegalArgumentException("Wrong start folder, use root folder");
         }
-        if (args[1].split(".").length == 2 && !("".equals(args[1].split(".")[1]))) {
+        if (!(args[1].startsWith(".")) || args[1].length() < 2) {
             throw new IllegalArgumentException("Wrong folder format");
         }
     }
