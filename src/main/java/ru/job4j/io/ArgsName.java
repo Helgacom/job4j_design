@@ -15,36 +15,38 @@ public class ArgsName {
         return values.get(key);
     }
 
+
+    private String[] validate(String pair) {
+        String[] lines = pair.split("=", 2);
+
+        if (!pair.startsWith("-")) {
+            throw new IllegalArgumentException(
+                    String.format("Error: This argument '%s' does not start with a '-' character", pair));
+        }
+        if (!pair.contains("=")) {
+            throw new IllegalArgumentException(
+                    String.format("Error: This argument '%s' does not contain an equal sign", pair));
+        }
+        if (pair.startsWith("-=")) {
+            throw new IllegalArgumentException(
+                    String.format("Error: This argument '%s' does not contain a key", pair));
+        }
+        if (lines[1].isEmpty()) {
+            throw new IllegalArgumentException(
+                    String.format("Error: This argument '%s' does not contain a value", pair));
+        }
+        return lines;
+    }
+
     private void parse(String[] args) {
         values.putAll(Arrays.stream(args)
-                .map(line -> line.split("=", 2))
+                .map(this::validate)
                 .collect(Collectors.toMap(s -> s[0].substring(1), s -> s[1])));
     }
 
     public static ArgsName of(String[] args) {
         if (args.length == 0) {
             throw new IllegalArgumentException("Arguments not passed to program");
-        }
-        for (String pair : args) {
-            if (pair.isEmpty()) {
-                throw new IllegalArgumentException("Arguments not passed to program");
-            }
-            if (!pair.startsWith("-")) {
-                throw new IllegalArgumentException(
-                        String.format("Error: This argument '%s' does not start with a '-' character", pair));
-            }
-            if (!pair.contains("=")) {
-                throw new IllegalArgumentException(
-                        String.format("Error: This argument '%s' does not contain an equal sign", pair));
-            }
-            if (pair.startsWith("-=")) {
-                throw new IllegalArgumentException(
-                        String.format("Error: This argument '%s' does not contain a key", pair));
-            }
-            if (pair.split("=", 2)[1].isEmpty()) {
-                throw new IllegalArgumentException(
-                        String.format("Error: This argument '%s' does not contain a value", pair));
-            }
         }
         ArgsName names = new ArgsName();
         names.parse(args);
