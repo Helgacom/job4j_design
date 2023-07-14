@@ -26,6 +26,7 @@ public class ConsoleChat {
 
     public void run() {
         List<String> log = new ArrayList<>();
+        var answers = readPhrases();
         System.out.println("Привет! Давай пообщаемся) Согласен?");
         log.add("Привет! Давай пообщаемся) Согласен?");
         boolean run = true;
@@ -46,7 +47,6 @@ public class ConsoleChat {
                 log.add("Спроси меня о чем-нибудь?");
                 String line = in.nextLine();
                 log.add(line);
-                var answers = readPhrases();
                 Random random = new Random();
                 int index = random.nextInt(answers.size());
                 System.out.println(answers.get(index));
