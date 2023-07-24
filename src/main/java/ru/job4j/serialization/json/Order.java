@@ -1,9 +1,11 @@
 package ru.job4j.serialization.json;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Order {
     private final String name;
@@ -20,6 +22,18 @@ public class Order {
         this.inWork = inWork;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public boolean isInWork() {
+        return inWork;
+    }
+
     @Override
     public String toString() {
         return "Order{"
@@ -33,7 +47,7 @@ public class Order {
     }
 
     public static void main(String[] args) {
-        Contact contact = new Contact("+7 (111) 111-11-11");
+        /* Contact contact = new Contact("+7 (111) 111-11-11");
         String[] positions = new String[]{"printer HP1010", "paper A4-21"};
         Order order = new Order("Black T.", 21000, positions, contact, true);
         System.out.println(order);
@@ -54,6 +68,27 @@ public class Order {
                         + "\"inWork\":true"
                         + "}";
         final Order orderMod = gson.fromJson(orderJson, Order.class);
-        System.out.println(orderMod);
+        System.out.println(orderMod); */
+        JSONObject jsonContact = new JSONObject("{\"phone\":\"+7(924)111-111-11-11\"}");
+
+        List<String> list = new ArrayList<>();
+        list.add("printer HP1010");
+        list.add("paper A4-21");
+        JSONArray jsonPositions = new JSONArray(list);
+
+        final Order order = new Order("Black T.", 21000,
+                new String[]{"printer HP1010", "paper A4-21"},
+                new Contact("+7(924)111-111-11-11"),
+                true);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("name", order.getName());
+        jsonObject.put("price", order.getPrice());
+        jsonObject.put("positions", jsonPositions);
+        jsonObject.put("contact", jsonContact);
+        jsonObject.put("inWork", order.isInWork());
+
+        System.out.println(jsonObject);
+
+        System.out.println(new JSONObject(order));
     }
 }
