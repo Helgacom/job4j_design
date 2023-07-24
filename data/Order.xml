@@ -1,0 +1,9 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<order name="Black T" price="21000">
+    <positions>
+            <position>printer HP1010</position>
+            <position>paper A4-21</position>
+    </positions>
+    <contact phone="+ 7(111) 111-11-11"/>
+    <inWork>true</inWork>
+</order>

@@ -1,0 +1,9 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<student name="Ivanov Ivan" age="20" sex="true">
+    <phone phone="+7 (111) 111-11-11"/>
+    <subjects>
+        <subject>history</subject>
+        <subject>literature</subject>
+        <subject>english</subject>
+    </subjects>
+</student>
