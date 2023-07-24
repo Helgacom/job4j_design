@@ -11,7 +11,7 @@ public class Order {
     private final String name;
     private final int price;
     private final String[] positions;
-    private Contact contact;
+    private final Contact contact;
     private final boolean inWork;
 
     public Order(String name, int price, String[] positions, Contact contact, boolean inWork) {
@@ -32,6 +32,14 @@ public class Order {
 
     public boolean isInWork() {
         return inWork;
+    }
+
+    public String[] getPositions() {
+        return positions;
+    }
+
+    public Contact getContact() {
+        return contact;
     }
 
     @Override
@@ -69,6 +77,10 @@ public class Order {
                         + "}";
         final Order orderMod = gson.fromJson(orderJson, Order.class);
         System.out.println(orderMod); */
+        final Order order = new Order("Black T.", 21000,
+                new String[]{"printer HP1010", "paper A4-21"},
+                new Contact("+7(924)111-111-11-11"), true);
+
         JSONObject jsonContact = new JSONObject("{\"phone\":\"+7(924)111-111-11-11\"}");
 
         List<String> list = new ArrayList<>();
@@ -76,10 +88,7 @@ public class Order {
         list.add("paper A4-21");
         JSONArray jsonPositions = new JSONArray(list);
 
-        final Order order = new Order("Black T.", 21000,
-                new String[]{"printer HP1010", "paper A4-21"},
-                new Contact("+7(924)111-111-11-11"),
-                true);
+        //new Contact("+7(924)111-111-11-11"),
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("name", order.getName());
         jsonObject.put("price", order.getPrice());
