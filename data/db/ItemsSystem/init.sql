@@ -1,1 +1,1 @@
-CREATEDATABASE items_system;
+create database items_system;

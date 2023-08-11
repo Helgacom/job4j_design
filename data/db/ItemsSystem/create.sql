@@ -1,52 +1,52 @@
-CREATETABLE users(
+create table users(
 	id serial primary key,
 	name varchar(255),
-	roles_id int REFERENCES roles(id) unique
+	roles_id int references roles(id) unique
 );
 
-CREATETABLE roles(
+create table roles(
 	id serial primary key,
 	role_name varchar(255)
 );
 
-CREATETABLE rules_list(
+create table rules_list(
 	id serial primary key,
 	rule_name varchar(255)
 );
 
-CREATETABLE roles_rules(
+create table roles_rules(
 	id serial primary key,
-	roles_id int REFERENCES roles(id),
-	rules_id int REFERENCES rules_list(id)
+	roles_id int references roles(id),
+	rules_id int references rules_list(id)
 );
 
-CREATETABLE items(
+create table items(
 	id serial primary key,
 	item varchar(255),
 	price numeric,
-	user_id int REFERENCES users(id) unique,
-	category_id int REFERENCES categories(id) unique,
-	state_id int REFERENCES states(id) unique
+	user_id int references users(id) unique,
+	category_id int references categories(id) unique,
+	state_id int references states(id) unique
 );
 
-CREATETABLE comments(
+create table comments(
 	id serial primary key,
 	comments varchar(255),
-	item_id int REFERENCES items(id) unique
+	item_id int references items(id) unique
 );
 
-CREATETABLE attachs(
+create table attachs(
 	id serial primary key,
 	file_name varchar(255),
-	item_id int REFERENCES items(id) unique
+	item_id int references items(id) unique
 );
 
-CREATETABLE states(
+create table states(
 	id serial primary key,
 	state varchar(255)
 );
 
-CREATETABLE categories(
+create table categories(
 	id serial primary key,
 	category_name varchar(255)
 );
