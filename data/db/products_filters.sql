@@ -34,7 +34,9 @@ select * from product;
 select * from product where type_id = 4;
 select * from product where name like '%мороженое%';
 select * from product where current_date > expired_date;
-select max(price) from product;
+
+select name, price from product
+where price = (select max(price) from product);
 
 select t.name, count(p.type_id)
 from type as t inner join product p
