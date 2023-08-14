@@ -33,4 +33,4 @@ on d.id = e.dep_id order by d.id;
 
 select t.name as t, t1.name as t1 from teens t
 cross join teens t1
-where t.gender != t1.gender;
+where t.gender = 'male' AND t.gender != t1.gender;
