@@ -12,9 +12,6 @@ public class Balancer {
             if (i == nodes.size()) {
                 i = 0;
             }
-            if (!source.hasNext()) {
-                break;
-            }
         }
     }
 }
