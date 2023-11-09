@@ -18,7 +18,7 @@ class FoolTest {
 
     @Test
     void checkFizzBuzz() {
-        assertThat(Fool.chooseFizzBuzz(1)).isEqualTo("FizzBuzz");
+        assertThat(Fool.chooseFizzBuzz(15)).isEqualTo("FizzBuzz");
     }
 
     @Test
