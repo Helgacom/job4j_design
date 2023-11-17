@@ -1,10 +1,10 @@
 package ru.job4j.ood.ocp;
 
-public class Messager {
+public class Messenger {
 
     private Logger log;
 
-    public Messager(Logger log) {
+    public Messenger(Logger log) {
         this.log = log;
     }
 
