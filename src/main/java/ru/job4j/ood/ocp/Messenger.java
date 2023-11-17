@@ -10,7 +10,6 @@ public class Messenger {
 
     public void sendMessage(String message) {
         log.logToFile(message);
-        //send message
     }
 
     /* в данном примере классы связаны напрямую, то есть через реализацию, а не абстракцию, если нам понадобиться
