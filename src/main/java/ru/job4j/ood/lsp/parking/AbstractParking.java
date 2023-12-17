@@ -21,6 +21,25 @@ public class AbstractParking implements Parking {
 
     @Override
     public void add(AbstractCar car) {
+        if ((busyPlacesByPassengerCars == placesForPassengerCars
+                && busyPlacesByTrucks == placesForTrucks)
+                || (car.getSize() == 1 && busyPlacesByPassengerCars == placesForPassengerCars)
+                || (car.getSize() > 1 && busyPlacesByTrucks + car.getSize() > placesForTrucks
+                && busyPlacesByPassengerCars + car.getSize() > placesForPassengerCars)) {
+            throw new IllegalArgumentException("Parking doesn't have free places");
+        }
+        if (car.getSize() == 1 && busyPlacesByPassengerCars < placesForPassengerCars) {
+            passengerCars.add(car);
+            busyPlacesByPassengerCars++;
+        }
+        if (car.getSize() > 1 && busyPlacesByTrucks + car.getSize() <= placesForTrucks) {
+            trucks.add(car);
+            busyPlacesByTrucks++;
+        }
+        if (car.getSize() > 1 && busyPlacesByTrucks + car.getSize() > placesForTrucks) {
+            passengerCars.add(car);
+            busyPlacesByPassengerCars += car.getSize();
+        }
     }
 
     public List<Car> getPassengerCars() {
