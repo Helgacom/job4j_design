@@ -16,7 +16,7 @@ public class ControlQuality {
         storeList.forEach(s -> s.add(food));
     }
 
-    public void refreshStores() {
+    public void restore() {
         storeList.stream()
                 .map(Store::clear)
                 .flatMap(Collection::stream)

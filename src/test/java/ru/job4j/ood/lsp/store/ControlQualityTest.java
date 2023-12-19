@@ -46,7 +46,7 @@ class ControlQualityTest {
                 15);
         controlQuality.addFood(food);
         expiryDate.add(Calendar.DAY_OF_MONTH, -5);
-        controlQuality.refreshStores();
+        controlQuality.restore();
         List<Food> foods = controlQuality.getStoreList().get(0).findAll();
         assertThat(foods).isEmpty();
     }
@@ -74,7 +74,7 @@ class ControlQualityTest {
         assertThat(warehouseFoods).contains(food);
         assertThat(trashFoods).isEmpty();
         expiryDate.add(Calendar.DAY_OF_MONTH, -9);
-        controlQuality.refreshStores();
+        controlQuality.restore();
         assertThat(warehouseFoods).isEmpty();
         assertThat(trashFoods).contains(food);
     }
@@ -97,7 +97,7 @@ class ControlQualityTest {
         controlQuality.addFood(food);
         expiryDate.add(Calendar.DAY_OF_MONTH, -50);
         createDate.add(Calendar.DAY_OF_MONTH, -50);
-        controlQuality.refreshStores();
+        controlQuality.restore();
         List<Food> foods = controlQuality.getStoreList().get(0).findAll();
         assertThat(foods).contains(food)
                 .element(0)
